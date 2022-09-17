@@ -1,28 +1,85 @@
 
 import './App.css';
-import Form from'./components/Form/index';
-import Button from './components/Button/index';
 
-import React, {useState} from 'react';
-const [nome, setNome] = useState('');
-const [idade, setIdade] = useState(0);
+import Button from './components/Button/index';
+import Card from './components/Card';
+
+import  {useState} from 'react';
+
+
 
 
 function App() {
+  const [userName, setUserName] = useState('');
+  const [userIdade, setUserIdade] =useState()
+
+  
+
+  const [users, setUsers] = useState([]);
+  
+   
+  function Cadastrar() {
+    // e.preventDefault()
+     
+
+    const newUser = {
+      nome: userName,
+      idade: userIdade
+    }
+    
+
+    
+    setUsers(prevState =>  [...prevState,newUser]);
+  }
+
+
   return (
+
+
     <div className='container'>
 
-     <h1>teste</h1>
-     <form className='formulario'>
-      <Form value={nome} type='text' placeholder='Inserir Nome'/>
-      <Form value={idade} type='number' placeholder='Inserir Idade'/>
-      <Button  descricao='ENVIAR'/>
-     </form>
+      <h1>teste</h1>
 
-     <div className='listaCadastro'>
-sdsds
-     </div>
-   
+      
+
+      <form className='formulario' 
+          
+          >
+            <input 
+            type='text' 
+            placeholder='inserir Nome:'
+            name={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            />
+            
+            <input 
+            type='number' 
+            placeholder='inserir idade'
+            name={userIdade}
+            onChange={(e) => setUserIdade(e.target.value)}/>
+          
+         <button 
+          type='button'
+          onClick={Cadastrar}>
+            CADASTRAR
+            </button> 
+
+         
+
+      </form>
+
+      <div className='listaCadastro'>
+        
+         {/* <Card nome={nome} idade={idade}/>   */}
+
+        {
+          users.map(user => <Card key={user.nome}  nome={user.nome} idade={user.idade} />)
+        
+        }
+            
+      </div>
+     
+     
     </div>
   
   );
